@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using TrabajoPracticoPS.Infrastructure.Data;
+using TrabajoPracticoPS.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // custom
-var connectionString = builder.Configuration["ConnectionString"];
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
