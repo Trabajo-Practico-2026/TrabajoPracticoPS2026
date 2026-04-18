@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
+namespace TrabajoPracticoPS.Application.Interfaces
 {
-    public class Class1
+    public interface Interface1
     {
     }
 }

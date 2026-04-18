@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrabajoPracticoPS.Application.Interfases
+namespace TrabajoPracticoPS.Infrastructure.Repositories
 {
-    public class Class1
+    public class EventRepository
     {
     }
 }

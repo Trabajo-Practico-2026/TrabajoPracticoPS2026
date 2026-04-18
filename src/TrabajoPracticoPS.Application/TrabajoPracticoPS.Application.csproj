@@ -10,4 +10,25 @@
     <ProjectReference Include="..\TrabajoPracticoPS.Domain\TrabajoPracticoPS.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Audit_Log\Commands\" />
+    <Folder Include="UseCases\Audit_Log\Handlers\" />
+    <Folder Include="UseCases\Audit_Log\Queries\" />
+    <Folder Include="UseCases\Event\Commands\" />
+    <Folder Include="UseCases\Event\Handlers\" />
+    <Folder Include="UseCases\Event\Queries\" />
+    <Folder Include="UseCases\Reservation\Commands\" />
+    <Folder Include="UseCases\Reservation\Handlers\" />
+    <Folder Include="UseCases\Reservation\Queries\" />
+    <Folder Include="UseCases\Seat\Commands\" />
+    <Folder Include="UseCases\Seat\Handlers\" />
+    <Folder Include="UseCases\Seat\Queries\" />
+    <Folder Include="UseCases\Sector\Commands\" />
+    <Folder Include="UseCases\Sector\Handlers\" />
+    <Folder Include="UseCases\Sector\Queries\" />
+    <Folder Include="UseCases\User\Commands\" />
+    <Folder Include="UseCases\User\Handlers\" />
+    <Folder Include="UseCases\User\Queries\" />
+  </ItemGroup>
+
 </Project>
