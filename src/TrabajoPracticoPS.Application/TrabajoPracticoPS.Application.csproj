@@ -24,11 +24,13 @@
     <Folder Include="UseCases\Seat\Handlers\" />
     <Folder Include="UseCases\Seat\Queries\" />
     <Folder Include="UseCases\Sector\Commands\" />
-    <Folder Include="UseCases\Sector\Handlers\" />
-    <Folder Include="UseCases\Sector\Queries\" />
     <Folder Include="UseCases\User\Commands\" />
     <Folder Include="UseCases\User\Handlers\" />
     <Folder Include="UseCases\User\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.1.0" />
   </ItemGroup>
 
 </Project>
