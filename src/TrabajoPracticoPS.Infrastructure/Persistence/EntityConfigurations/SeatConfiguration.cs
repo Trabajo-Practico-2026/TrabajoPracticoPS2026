@@ -13,7 +13,7 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Seat> builder)
         {
-            builder.ToTable("Seats");
+            builder.ToTable("SEAT");
             builder.HasKey(s => s.Id);
             builder.Property(s => s.RowIdentifier).IsRequired().HasMaxLength(10);
             builder.Property(s => s.Status).IsRequired().HasMaxLength(50);

@@ -17,6 +17,6 @@ namespace TrabajoPracticoPS.Domain.Entities
 
         // Navegación
         public Sector? Sector { get; set; }
-        public ICollection<Reservation>? Reservations { get; set; }
+        public Reservation? Reservation { get; set; }
     }
 }

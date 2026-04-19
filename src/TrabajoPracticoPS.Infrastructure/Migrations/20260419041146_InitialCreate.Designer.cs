@@ -12,7 +12,7 @@ using TrabajoPracticoPS.Infrastructure.Data;
 namespace TrabajoPracticoPS.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260419014549_InitialCreate")]
+    [Migration("20260419041146_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -60,7 +60,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AuditLogs", (string)null);
+                    b.ToTable("AUDIT_LOG", (string)null);
                 });
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.Event", b =>
@@ -91,7 +91,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Events", (string)null);
+                    b.ToTable("EVENT", (string)null);
 
                     b.HasData(
                         new
@@ -129,7 +129,8 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SeatId");
+                    b.HasIndex("SeatId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -167,7 +168,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
                     b.HasIndex("SectorId");
 
-                    b.ToTable("Seats", (string)null);
+                    b.ToTable("SEAT", (string)null);
                 });
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.Sector", b =>
@@ -196,7 +197,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Sectors", (string)null);
+                    b.ToTable("SECTOR", (string)null);
 
                     b.HasData(
                         new
@@ -244,7 +245,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("USER", (string)null);
                 });
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.AuditLog", b =>
@@ -260,8 +261,8 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.Reservation", b =>
                 {
                     b.HasOne("TrabajoPracticoPS.Domain.Entities.Seat", "Seat")
-                        .WithMany("Reservations")
-                        .HasForeignKey("SeatId")
+                        .WithOne("Reservation")
+                        .HasForeignKey("TrabajoPracticoPS.Domain.Entities.Reservation", "SeatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -304,7 +305,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.Seat", b =>
                 {
-                    b.Navigation("Reservations");
+                    b.Navigation("Reservation");
                 });
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.Sector", b =>

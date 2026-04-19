@@ -13,8 +13,8 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
             builder.Property(r => r.Status).IsRequired().HasMaxLength(50);
 
             builder.HasOne(r => r.Seat)
-                .WithMany(s => s.Reservations)
-                .HasForeignKey(r => r.SeatId)
+                .WithOne(s => s.Reservation)
+                .HasForeignKey<Reservation>(r => r.SeatId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(r => r.User)

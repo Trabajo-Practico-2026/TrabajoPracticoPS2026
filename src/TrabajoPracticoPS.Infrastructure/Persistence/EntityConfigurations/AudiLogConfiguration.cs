@@ -13,7 +13,7 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<AuditLog> builder)
         {
-            builder.ToTable("AuditLogs");
+            builder.ToTable("AUDIT_LOG");
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Action).IsRequired().HasMaxLength(100);
             builder.Property(a => a.EntityType).IsRequired().HasMaxLength(100);
