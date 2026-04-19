@@ -13,7 +13,7 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Sector> builder)
         {
-            builder.ToTable("Sectors");
+            builder.ToTable("SECTOR");
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Name).IsRequired().HasMaxLength(100);
             builder.Property(s => s.Price).IsRequired().HasColumnType("decimal(18,2)");

@@ -8,13 +8,13 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
-            builder.ToTable("Reservations");
+            builder.ToTable("RESERVATION");
             builder.HasKey(r => r.Id);
             builder.Property(r => r.Status).IsRequired().HasMaxLength(50);
 
             builder.HasOne(r => r.Seat)
-                .WithMany(s => s.Reservations)
-                .HasForeignKey(r => r.SeatId)
+                .WithOne(s => s.Reservation)
+                .HasForeignKey<Reservation>(r => r.SeatId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(r => r.User)

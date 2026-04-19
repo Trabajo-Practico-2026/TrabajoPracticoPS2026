@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TrabajoPracticoPS.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InicialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "EVENT",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -26,11 +26,11 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.PrimaryKey("PK_EVENT", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "USER",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -41,11 +41,11 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_USER", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sectors",
+                name: "SECTOR",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -57,17 +57,17 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sectors", x => x.Id);
+                    table.PrimaryKey("PK_SECTOR", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sectors_Events_EventId",
+                        name: "FK_SECTOR_EVENT_EventId",
                         column: x => x.EventId,
-                        principalTable: "Events",
+                        principalTable: "EVENT",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuditLogs",
+                name: "AUDIT_LOG",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -80,16 +80,16 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuditLogs", x => x.Id);
+                    table.PrimaryKey("PK_AUDIT_LOG", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AuditLogs_Users_UserId",
+                        name: "FK_AUDIT_LOG_USER_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "USER",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Seats",
+                name: "SEAT",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -101,17 +101,17 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Seats", x => x.Id);
+                    table.PrimaryKey("PK_SEAT", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Seats_Sectors_SectorId",
+                        name: "FK_SEAT_SECTOR_SectorId",
                         column: x => x.SectorId,
-                        principalTable: "Sectors",
+                        principalTable: "SECTOR",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservations",
+                name: "RESERVATION",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -123,27 +123,27 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.PrimaryKey("PK_RESERVATION", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservations_Seats_SeatId",
+                        name: "FK_RESERVATION_SEAT_SeatId",
                         column: x => x.SeatId,
-                        principalTable: "Seats",
+                        principalTable: "SEAT",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservations_Users_UserId",
+                        name: "FK_RESERVATION_USER_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "USER",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
-                table: "Events",
+                table: "EVENT",
                 columns: new[] { "Id", "EventDate", "Name", "Status", "Venue" },
                 values: new object[] { 1, new DateTime(2026, 6, 1, 21, 0, 0, 0, DateTimeKind.Unspecified), "Concierto de Rock", "Active", "Estadio Quilmes" });
 
             migrationBuilder.InsertData(
-                table: "Sectors",
+                table: "SECTOR",
                 columns: new[] { "Id", "Capacity", "EventId", "Name", "Price" },
                 values: new object[,]
                 {
@@ -152,33 +152,34 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuditLogs_UserId",
-                table: "AuditLogs",
+                name: "IX_AUDIT_LOG_UserId",
+                table: "AUDIT_LOG",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_SeatId",
-                table: "Reservations",
-                column: "SeatId");
+                name: "IX_RESERVATION_SeatId",
+                table: "RESERVATION",
+                column: "SeatId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_UserId",
-                table: "Reservations",
+                name: "IX_RESERVATION_UserId",
+                table: "RESERVATION",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seats_SectorId",
-                table: "Seats",
+                name: "IX_SEAT_SectorId",
+                table: "SEAT",
                 column: "SectorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sectors_EventId",
-                table: "Sectors",
+                name: "IX_SECTOR_EventId",
+                table: "SECTOR",
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_Email",
-                table: "Users",
+                name: "IX_USER_Email",
+                table: "USER",
                 column: "Email",
                 unique: true);
         }
@@ -187,22 +188,22 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AuditLogs");
+                name: "AUDIT_LOG");
 
             migrationBuilder.DropTable(
-                name: "Reservations");
+                name: "RESERVATION");
 
             migrationBuilder.DropTable(
-                name: "Seats");
+                name: "SEAT");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "USER");
 
             migrationBuilder.DropTable(
-                name: "Sectors");
+                name: "SECTOR");
 
             migrationBuilder.DropTable(
-                name: "Events");
+                name: "EVENT");
         }
     }
 }

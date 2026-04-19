@@ -8,7 +8,7 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Event> builder)
         {
-            builder.ToTable("Events");
+            builder.ToTable("EVENT");
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Name).IsRequired().HasMaxLength(200);
             builder.Property(e => e.Venue).IsRequired().HasMaxLength(200);
