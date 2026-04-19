@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TrabajoPracticoPS.Infrastructure.Data;
+using TrabajoPracticoPS.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,14 @@ var connectionString = builder.Configuration["ConnectionString"];
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
+
+// Aplica migraciones y seeding al iniciar
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
+    DataSeeder.Seed(context);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
