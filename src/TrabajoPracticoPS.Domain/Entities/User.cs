@@ -8,15 +8,13 @@ namespace TrabajoPracticoPS.Domain.Entities
 {
     public class User
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
+        public int? Id { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? PasswordHash { get; set; }
 
-        //Relaciones
-        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
-        public ICollection<AuditLog> auditLogs { get; set; } = new List<AuditLog>();
-
-
+        // Navegación
+        public ICollection<Reservation>? Reservations { get; set; }
+        public ICollection<AuditLog>? AuditLogs { get; set; }
     }
 }

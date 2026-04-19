@@ -9,14 +9,14 @@ namespace TrabajoPracticoPS.Domain.Entities
     public class AuditLog
     {
         public Guid Id { get; set; }
-        public int? UserId { get; set; }// Puede ser nulo si es un proceso del sistema
-        public string Action { get; set; } = string.Empty; //RESERVE_ATTEMPT(Intento de reserva), RESERVE_SUCCESS (Reserva exitosa), EXPIRED (Expirado)
-        public string EntityType {  get; set; } = string.Empty;// Reservation, Seat
-        public string EntityId { get; set; } = string.Empty;
-        public string Details { get; set; } = string.Empty;// JSON con metadatos
+        public int? UserId { get; set; }   // Nullable: puede ser el sistema
+        public string Action { get; set; }
+        public string EntityType { get; set; }
+        public string EntityId { get; set; }
+        public string Details { get; set; }
         public DateTime CreatedAt { get; set; }
 
-        //relacion
+        // Navegación
         public User? User { get; set; }
     }
 }

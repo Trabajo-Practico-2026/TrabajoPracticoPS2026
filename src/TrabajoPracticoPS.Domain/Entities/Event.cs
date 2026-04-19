@@ -9,12 +9,12 @@ namespace TrabajoPracticoPS.Domain.Entities
     public class Event
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
         public DateTime EventDate { get; set; }
-        public string Venue { get; set; } = string.Empty;
-        public string Status {  get; set; } = "Active";
+        public string Venue { get; set; }
+        public string Status { get; set; }
 
-        //relacion con sectores
-        public ICollection<Sector> Sectors { get; set; } = new List<Sector>();
+        // Navegación
+        public ICollection<Sector>? Sectors { get; set; }
     }
 }

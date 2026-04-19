@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrabajoPracticoPS.Application.Interfases
+namespace TrabajoPracticoPS.Domain.Exceptions
 {
     public class Class1
     {
