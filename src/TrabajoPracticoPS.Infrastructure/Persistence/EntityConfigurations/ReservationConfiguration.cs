@@ -8,7 +8,7 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
-            builder.ToTable("Reservations");
+            builder.ToTable("RESERVATION");
             builder.HasKey(r => r.Id);
             builder.Property(r => r.Status).IsRequired().HasMaxLength(50);
 

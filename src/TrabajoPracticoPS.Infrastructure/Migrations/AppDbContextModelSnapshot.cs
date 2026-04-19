@@ -131,7 +131,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("RESERVATION", (string)null);
                 });
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.Seat", b =>

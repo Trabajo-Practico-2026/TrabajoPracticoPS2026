@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TrabajoPracticoPS.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InicialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -111,7 +111,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservations",
+                name: "RESERVATION",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -123,15 +123,15 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.PrimaryKey("PK_RESERVATION", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservations_SEAT_SeatId",
+                        name: "FK_RESERVATION_SEAT_SeatId",
                         column: x => x.SeatId,
                         principalTable: "SEAT",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Reservations_USER_UserId",
+                        name: "FK_RESERVATION_USER_UserId",
                         column: x => x.UserId,
                         principalTable: "USER",
                         principalColumn: "Id");
@@ -157,14 +157,14 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_SeatId",
-                table: "Reservations",
+                name: "IX_RESERVATION_SeatId",
+                table: "RESERVATION",
                 column: "SeatId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_UserId",
-                table: "Reservations",
+                name: "IX_RESERVATION_UserId",
+                table: "RESERVATION",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -191,7 +191,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 name: "AUDIT_LOG");
 
             migrationBuilder.DropTable(
-                name: "Reservations");
+                name: "RESERVATION");
 
             migrationBuilder.DropTable(
                 name: "SEAT");

@@ -12,8 +12,8 @@ using TrabajoPracticoPS.Infrastructure.Data;
 namespace TrabajoPracticoPS.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260419041146_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260419152058_InicialCreate")]
+    partial class InicialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,7 +134,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("RESERVATION", (string)null);
                 });
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.Seat", b =>
