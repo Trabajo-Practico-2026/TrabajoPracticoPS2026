@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using TrabajoPracticoPS.Application.Interfaces;
 using TrabajoPracticoPS.Infrastructure.Data;
 using TrabajoPracticoPS.Infrastructure.Persistence;
+using TrabajoPracticoPS.Infrastructure.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,9 +22,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// custom
+// Configuración de Entity Framework Core con SQL Server
 var connectionString = builder.Configuration["ConnectionString"];
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+// MediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ISectorRepository).Assembly));
+
+// Inyección de dependencias
+builder.Services.AddScoped<ISectorRepository, SectorRepository>();
 
 var app = builder.Build();
 
