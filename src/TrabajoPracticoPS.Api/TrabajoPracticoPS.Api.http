@@ -1,0 +1,6 @@
+@TrabajoPracticoPS.Api_HostAddress = http://localhost:5097
+
+GET {{TrabajoPracticoPS.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
