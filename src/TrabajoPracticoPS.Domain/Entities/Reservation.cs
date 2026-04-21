@@ -11,7 +11,7 @@ namespace TrabajoPracticoPS.Domain.Entities
         public Guid Id { get; set; }
         public int UserId { get; set; }
         public Guid SeatId { get; set; }
-        public string Status { get; set; } // Pending, Paid, Expired
+        public required string Status { get; set; } // Pending, Paid, Expired
         public DateTime ReservedAt { get; set; }
         public DateTime ExpiresAt { get; set; }
 

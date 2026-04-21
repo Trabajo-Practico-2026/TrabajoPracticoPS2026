@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TrabajoPracticoPS.Infrastructure.Persistence;
+using TrabajoPracticoPS.Infrastructure.Data;
 using TrabajoPracticoPS.Domain.Entities;
 
 

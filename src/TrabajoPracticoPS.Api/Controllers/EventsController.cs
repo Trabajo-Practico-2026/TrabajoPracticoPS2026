@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using TrabajoPracticoPS.Infrastructure.Persistence;
 using TrabajoPracticoPS.Domain.Entities;
+using MediatR;
+using TrabajoPracticoPS.Application.UseCases.Event.Queries;
 
 namespace TrabajoPracticoPS.Api.Controllers
 {
@@ -9,21 +11,19 @@ namespace TrabajoPracticoPS.Api.Controllers
     [Route("api/v1/[controller]")]
     public class EventsController: ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IMediator _mediator;
 
-        public EventsController(AppDbContext context)
+        public EventsController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
-            var events = await _context.Events
-                .Include(e => e.Sectors)
-                .ToListAsync();
+            var result = await _mediator.Send(new GetAllEventsQuery());
 
-            return Ok(events);
+            return Ok(result);
         }
     }
 }

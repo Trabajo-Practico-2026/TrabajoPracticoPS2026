@@ -31,6 +31,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ISect
 
 // Inyección de dependencias
 builder.Services.AddScoped<ISectorRepository, SectorRepository>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<ISeatRepository, SeatRepository>();
 
 var app = builder.Build();
 

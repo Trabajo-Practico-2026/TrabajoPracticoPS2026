@@ -8,12 +8,12 @@ namespace TrabajoPracticoPS.Domain.Entities
 {
     public class Seat
     {
-        public Guid? Id { get; set; }
-        public int? SectorId { get; set; }
+        public Guid Id { get; set; }
+        public int SectorId { get; set; }
         public string? RowIdentifier { get; set; }
-        public int? SeatNumber { get; set; }
-        public string? Status { get; set; } // Available, Reserved, Sold
-        public int? Version { get; set; }   // Para Optimistic Locking
+        public int SeatNumber { get; set; }
+        public required string Status { get; set; } // Available, Reserved, Sold
+        public int Version { get; set; }   // Para Optimistic Locking
 
         // Navegación
         public Sector? Sector { get; set; }

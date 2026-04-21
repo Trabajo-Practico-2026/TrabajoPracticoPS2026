@@ -10,10 +10,10 @@ namespace TrabajoPracticoPS.Domain.Entities
     {
         public Guid Id { get; set; }
         public int? UserId { get; set; }   // Nullable: puede ser el sistema
-        public string Action { get; set; }
-        public string EntityType { get; set; }
-        public string EntityId { get; set; }
-        public string Details { get; set; }
+        public required string Action { get; set; }
+        public required string EntityType { get; set; }
+        public required string EntityId { get; set; }
+        public required string Details { get; set; }
         public DateTime CreatedAt { get; set; }
 
         // Navegación
