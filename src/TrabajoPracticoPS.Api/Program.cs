@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TrabajoPracticoPS.Api.Middlewares;
 using TrabajoPracticoPS.Application.Interfaces;
 using TrabajoPracticoPS.Infrastructure.Data;
 using TrabajoPracticoPS.Infrastructure.Persistence;
@@ -29,10 +30,16 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conn
 // MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ISectorRepository).Assembly));
 
-// Inyección de dependencias
+// Unit of Work
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Repositorios
 builder.Services.AddScoped<ISectorRepository, SectorRepository>();
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<ISeatRepository, SeatRepository>();
+builder.Services.AddScoped<IAuditLogRepository, AuditLogRepository>();
+builder.Services.AddScoped<IReservationRespository, ReservationRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
@@ -50,6 +57,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("MicroserviceCorsPolicy");
 

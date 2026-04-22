@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TrabajoPracticoPS.Domain.Exceptions
 {
-    public class Class1
+    public class DomainException : Exception
     {
+        public DomainException(string message) : base(message) { }
     }
 }

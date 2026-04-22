@@ -7,10 +7,8 @@ using TrabajoPracticoPS.Domain.Entities;
 
 namespace TrabajoPracticoPS.Application.Interfaces
 {
-    public interface ISeatRepository
+    public interface IUserRepository
     {
-        Task<IEnumerable<Seat>> GetAllSeats();
-        Task<IEnumerable<Seat>> GetSeatsBySector(int sectorId);
-        Task<Seat> GetSeatById(Guid seatId);
+        Task CreateUser(User user);
     }
 }
