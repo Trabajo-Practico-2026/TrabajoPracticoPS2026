@@ -19,5 +19,15 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.Repositories
         {
             return await _context.Seats.ToListAsync();
         }
+
+        public async Task<Seat> GetSeatById(Guid seatId)
+        {
+            return await _context.Seats.FirstOrDefaultAsync(s => s.Id == seatId);
+        }
+
+        public async Task<IEnumerable<Seat>> GetSeatsBySector(int sectorId)
+        {
+            return await _context.Seats.Where(s => s.SectorId == sectorId).ToListAsync();
+        }
     }
 }

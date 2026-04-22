@@ -23,6 +23,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Sector.Handlers
             var sectors = await _repository.GetAllSector();
             return sectors.Select(s => new SectorResponseDto
             {
+                Id = s.Id,
                 Name = s.Name,
                 Price = s.Price,
                 Capacity = s.Capacity
