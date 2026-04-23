@@ -5,7 +5,7 @@ using TrabajoPracticoPS.Application.UseCases.Sector.Queries;
 
 namespace TrabajoPracticoPS.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class SectorsController : ControllerBase
     {
@@ -14,7 +14,7 @@ namespace TrabajoPracticoPS.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet]
+        [HttpGet("sectors")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllSectorsQuery());

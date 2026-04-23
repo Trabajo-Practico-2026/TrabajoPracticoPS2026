@@ -10,7 +10,7 @@ using TrabajoPracticoPS.Infrastructure.Data;
 namespace TrabajoPracticoPS.Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1")]
     public class SeatsController: ControllerBase
     {
         private readonly IMediator _mediator;
@@ -19,10 +19,10 @@ namespace TrabajoPracticoPS.Api.Controllers
             _mediator = mediator;
         }
         // Listar asientos de un sector
-        [HttpGet("sector/{sectorId}")]
-        public async Task<IActionResult> GetSeatsBySector(int sectorId)
+        [HttpGet("sector/{id}/seats")]
+        public async Task<IActionResult> GetSeatsBySector(int id)
         {
-            var result = await _mediator.Send(new GetSeatsBySectorQuery(sectorId));
+            var result = await _mediator.Send(new GetSeatsBySectorQuery(id));
             return Ok(result);
         }
         

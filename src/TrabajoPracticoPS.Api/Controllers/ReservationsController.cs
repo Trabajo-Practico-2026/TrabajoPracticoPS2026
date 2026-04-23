@@ -6,7 +6,7 @@ using TrabajoPracticoPS.Domain.Exceptions;
 
 namespace TrabajoPracticoPS.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class ReservationsController : ControllerBase
     {
@@ -15,7 +15,7 @@ namespace TrabajoPracticoPS.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost("reserve")]
+        [HttpPost("reservations")]
         public async Task<IActionResult> ReserveSeat([FromBody] ReserveSeatCommand request)
         {
             try
