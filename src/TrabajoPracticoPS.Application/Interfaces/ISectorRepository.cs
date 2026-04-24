@@ -10,5 +10,6 @@ namespace TrabajoPracticoPS.Application.Interfaces
     public interface ISectorRepository
     {
        Task <IEnumerable<Sector>> GetAllSector();
+       Task <IEnumerable<Sector>> GetAllSectorsByEvent(int eventId);
     }
 }

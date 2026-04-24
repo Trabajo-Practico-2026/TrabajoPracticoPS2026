@@ -20,6 +20,12 @@ namespace TrabajoPracticoPS.Api.Controllers
             var result = await _mediator.Send(new GetAllSectorsQuery());
             return Ok(result);
         }
+        [HttpGet("events/{id}/sectors")]
+        public async Task<IActionResult> GetAllByEvent(int id)
+        {
+            var result = await _mediator.Send(new GetAllSectorsByEventQuery(id));
+            return Ok(result);
+        }
     }
 
 }

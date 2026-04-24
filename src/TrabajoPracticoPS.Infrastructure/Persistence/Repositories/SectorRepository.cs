@@ -22,5 +22,10 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.Repositories
         {
             return await _context.Sectors.ToListAsync();
         }
+
+        public async Task<IEnumerable<Sector>> GetAllSectorsByEvent(int eventId)
+        {
+            return await _context.Sectors.Where(s => s.EventId == eventId).ToListAsync();
+        }
     }
 }
