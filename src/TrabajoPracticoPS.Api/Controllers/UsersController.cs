@@ -5,7 +5,7 @@ using TrabajoPracticoPS.Application.UseCases.User.Commands;
 
 namespace TrabajoPracticoPS.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -14,7 +14,7 @@ namespace TrabajoPracticoPS.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost]
+        [HttpPost("users")]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
         {
             var userId = await _mediator.Send(command);

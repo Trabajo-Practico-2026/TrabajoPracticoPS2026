@@ -8,7 +8,7 @@ using TrabajoPracticoPS.Application.UseCases.Event.Queries;
 namespace TrabajoPracticoPS.Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1")]
     public class EventsController: ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,7 +18,7 @@ namespace TrabajoPracticoPS.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("events")]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
             var result = await _mediator.Send(new GetAllEventsQuery());
