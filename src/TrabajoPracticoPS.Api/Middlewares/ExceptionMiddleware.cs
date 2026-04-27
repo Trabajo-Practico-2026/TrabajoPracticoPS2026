@@ -23,14 +23,12 @@ namespace TrabajoPracticoPS.Api.Middlewares
             }
             catch (Exception ex)
             {
-                // Aquí puedes agregar lógica para manejar diferentes tipos de excepciones
-                // y devolver respuestas personalizadas según el tipo de error.
                 context.Response.StatusCode = 500; // Internal Server Error
                 context.Response.ContentType = "application/json";
                 var response = new
                 {
                     Message = "Ocurrió un error inesperado.",
-                    Details = ex.Message // En producción, podrías querer ocultar detalles específicos del error.
+                    Details = ex.Message
                 };
                 await context.Response.WriteAsJsonAsync(response);
             }
