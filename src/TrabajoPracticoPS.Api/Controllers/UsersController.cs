@@ -15,10 +15,11 @@ namespace TrabajoPracticoPS.Api.Controllers
             _mediator = mediator;
         }
         [HttpPost("users")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
         {
             var userId = await _mediator.Send(command);
-            return Ok(userId);
+            return StatusCode(StatusCodes.Status201Created, userId);
         }
     }
 }

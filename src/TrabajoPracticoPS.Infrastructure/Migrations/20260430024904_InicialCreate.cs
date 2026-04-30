@@ -93,9 +93,9 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SectorId = table.Column<int>(type: "int", nullable: true),
+                    SectorId = table.Column<int>(type: "int", nullable: false),
                     RowIdentifier = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    SeatNumber = table.Column<int>(type: "int", nullable: true),
+                    SeatNumber = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Version = table.Column<int>(type: "int", nullable: false)
                 },
@@ -141,6 +141,11 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                 table: "EVENT",
                 columns: new[] { "Id", "EventDate", "Name", "Status", "Venue" },
                 values: new object[] { 1, new DateTime(2026, 6, 1, 21, 0, 0, 0, DateTimeKind.Unspecified), "Concierto de Rock", "Active", "Estadio Quilmes" });
+
+            migrationBuilder.InsertData(
+                table: "USER",
+                columns: new[] { "Id", "Email", "Name", "PasswordHash" },
+                values: new object[] { 1, "john.doe@example.com", "John Doe", "hashed_password" });
 
             migrationBuilder.InsertData(
                 table: "SECTOR",

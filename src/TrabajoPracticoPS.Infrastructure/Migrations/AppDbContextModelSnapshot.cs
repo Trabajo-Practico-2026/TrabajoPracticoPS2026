@@ -136,7 +136,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.Seat", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -145,10 +145,10 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int?>("SeatNumber")
+                    b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SectorId")
+                    b.Property<int>("SectorId")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -156,9 +156,8 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("Version")
+                    b.Property<int>("Version")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -217,11 +216,11 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.User", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -243,6 +242,15 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("USER", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "john.doe@example.com",
+                            Name = "John Doe",
+                            PasswordHash = "hashed_password"
+                        });
                 });
 
             modelBuilder.Entity("TrabajoPracticoPS.Domain.Entities.AuditLog", b =>
@@ -279,7 +287,8 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                     b.HasOne("TrabajoPracticoPS.Domain.Entities.Sector", "Sector")
                         .WithMany("Seats")
                         .HasForeignKey("SectorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Sector");
                 });

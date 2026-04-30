@@ -19,6 +19,14 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
             builder.Property(u => u.Email).IsRequired().HasMaxLength(200);
             builder.HasIndex(u => u.Email).IsUnique();
             builder.Property(u => u.PasswordHash).IsRequired();
+
+            builder.HasData(new User
+            {
+                Id = 1,
+                Name = "John Doe",
+                Email = "john.doe@example.com",
+                PasswordHash = "hashed_password"
+            });
         }
     }
 }
