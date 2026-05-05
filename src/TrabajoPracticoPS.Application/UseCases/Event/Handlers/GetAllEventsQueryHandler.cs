@@ -7,6 +7,7 @@ using MediatR;
 using TrabajoPracticoPS.Application.DTOs;
 using TrabajoPracticoPS.Application.Interfaces;
 using TrabajoPracticoPS.Application.UseCases.Event.Queries;
+using TrabajoPracticoPS.Domain.Exceptions;
 
 namespace TrabajoPracticoPS.Application.UseCases.Event.Handlers
 {
@@ -21,6 +22,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Event.Handlers
         public async Task<IEnumerable<EventResponseDto>> Handle(GetAllEventsQuery request, CancellationToken cancellationToken)
         {
             var events = await _repository.GetAllEvents();
+            if (events == null) throw new NotFoundException("No se encontraron eventos.");
             return events.Select(e => new EventResponseDto
             {
                 Id = e.Id,

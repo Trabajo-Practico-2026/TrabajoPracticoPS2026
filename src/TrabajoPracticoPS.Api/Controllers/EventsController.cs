@@ -19,6 +19,8 @@ namespace TrabajoPracticoPS.Api.Controllers
         }
 
         [HttpGet("events")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
             var result = await _mediator.Send(new GetAllEventsQuery());

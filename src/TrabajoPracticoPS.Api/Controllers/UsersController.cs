@@ -16,6 +16,7 @@ namespace TrabajoPracticoPS.Api.Controllers
         }
         [HttpPost("users")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
         {
             var userId = await _mediator.Send(command);

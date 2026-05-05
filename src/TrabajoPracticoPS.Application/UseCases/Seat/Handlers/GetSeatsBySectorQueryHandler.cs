@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TrabajoPracticoPS.Application.DTOs;
 using TrabajoPracticoPS.Application.Interfaces;
 using TrabajoPracticoPS.Application.UseCases.Seat.Queries;
+using TrabajoPracticoPS.Domain.Exceptions;
 
 namespace TrabajoPracticoPS.Application.UseCases.Seat.Handlers
 {
@@ -23,6 +24,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Seat.Handlers
         public async Task<IEnumerable<SeatResponseDto>> Handle(GetSeatsBySectorQuery request, CancellationToken cancellationToken)
         {
             var seats = await _repository.GetSeatsBySector(request.sectorId);
+            if (seats == null) throw new NotFoundException($"No se encontraron asientos para el sector con ID {request.sectorId}.");
             return seats.Select(s => new SeatResponseDto
             {
                 Id = s.Id,
