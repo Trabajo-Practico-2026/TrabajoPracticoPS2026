@@ -20,6 +20,8 @@ namespace TrabajoPracticoPS.Api.Controllers
         }
         // Listar asientos de un sector
         [HttpGet("sector/{id}/seats")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetSeatsBySector(int id)
         {
             var result = await _mediator.Send(new GetSeatsBySectorQuery(id));

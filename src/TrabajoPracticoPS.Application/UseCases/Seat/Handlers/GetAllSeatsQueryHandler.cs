@@ -2,6 +2,7 @@
 using TrabajoPracticoPS.Application.DTOs;
 using TrabajoPracticoPS.Application.Interfaces;
 using TrabajoPracticoPS.Application.UseCases.Seat.Queries;
+using TrabajoPracticoPS.Domain.Exceptions;
 
 namespace TrabajoPracticoPS.Application.UseCases.Seat.Handlers
 {
@@ -17,6 +18,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Seat.Handlers
         public async Task<IEnumerable<SeatResponseDto>> Handle(GetAllSeatsQuery request, CancellationToken cancellationToken)
         {
             var seats = await _repository.GetAllSeats();
+            if (seats == null) throw new NotFoundException("No hay sillas.");
             return seats.Select(s => new SeatResponseDto
             {
                 Id = s.Id,

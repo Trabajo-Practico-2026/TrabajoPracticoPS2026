@@ -18,17 +18,12 @@ namespace TrabajoPracticoPS.Api.Controllers
         [HttpPost("reservations")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> ReserveSeat([FromBody] ReserveSeatCommand request)
         {
-            try
-            {
                 await _mediator.Send(new ReserveSeatCommand(request.SeatId, request.UserId));
-                return StatusCode(StatusCodes.Status201Created,new { Message = "Butaca reservada exitosamente. Tienes 10 minutos para completar la compra." });
-            }
-            catch (DomainException ex)
-            {
-                return StatusCode(StatusCodes.Status404NotFound,new {ex.Message });
-            }
+                return StatusCode(StatusCodes.Status201Created,new { Message = "Butaca reservada exitosamente. Tienes 5 minutos para completar la compra." });
+            
         }
 
     }

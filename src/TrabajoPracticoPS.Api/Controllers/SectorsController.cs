@@ -15,12 +15,16 @@ namespace TrabajoPracticoPS.Api.Controllers
             _mediator = mediator;
         }
         [HttpGet("sectors")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAll()
         {
             var result = await _mediator.Send(new GetAllSectorsQuery());
             return Ok(result);
         }
         [HttpGet("events/{id}/sectors")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAllByEvent(int id)
         {
             var result = await _mediator.Send(new GetAllSectorsByEventQuery(id));
