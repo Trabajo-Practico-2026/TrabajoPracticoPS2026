@@ -10,5 +10,7 @@ namespace TrabajoPracticoPS.Application.Interfaces
     public interface IReservationRespository
     {
         Task CreateReservation(Reservation reservation);
+        //Para el pago transaccional
+        Task<Reservation?> GetReservationById(Guid reservationId);
     }
 }

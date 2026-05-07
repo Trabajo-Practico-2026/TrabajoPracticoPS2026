@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrabajoPracticoPS.Application.Interfaces;
+﻿using TrabajoPracticoPS.Application.Interfaces;
 using TrabajoPracticoPS.Domain.Entities;
 using TrabajoPracticoPS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +16,12 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.Repositories
         {
             await _context.AddAsync(reservation);
         }
-
+        //Incluye la butaca para poder modificar su estado en la misma transaccion
+        public async Task<Reservation?> GetReservationById (Guid reservationId)
+        {
+            return await _context.Reservations
+                .Include(r=> r.Seat)
+                .FirstOrDefaultAsync(r => r.Id == reservationId);
+        }
     }
 }

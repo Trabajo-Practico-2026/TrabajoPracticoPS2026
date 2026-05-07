@@ -15,14 +15,14 @@ namespace TrabajoPracticoPS.Api.Controllers
         {
             _mediator = mediator;
         }
-        [HttpPost("reservations")]
+        [HttpPost("reservations/{id}/confirm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> ReserveSeat([FromBody] ReserveSeatCommand request)
+        public async Task<IActionResult> ConfirmPayment(Guid id)
         {
-                await _mediator.Send(new ReserveSeatCommand(request.SeatId, request.UserId));
-                return StatusCode(StatusCodes.Status201Created,new { Message = "Butaca reservada exitosamente. Tienes 5 minutos para completar la compra." });
+                await _mediator.Send(new ConfirmPaymentCommand(id));
+                return Ok(new { Message = "Pago confirmado. La butaca fue marcada como vendida." });
             
         }
 
