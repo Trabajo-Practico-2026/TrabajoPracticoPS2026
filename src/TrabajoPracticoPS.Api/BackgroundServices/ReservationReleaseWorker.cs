@@ -24,12 +24,11 @@ namespace TrabajoPracticoPS.Api.BackgroundServices
                 {
                     using (var scope = _serviceProvider.CreateScope())
                     {
-                        // Nota: Asegúrate de que el nombre de la interfaz esté bien escrito (Repository)
+
                         var reservationRepository = scope.ServiceProvider.GetRequiredService<IReservationRespository>();
 
                         _logger.LogInformation("Checking for expired reservations...");
 
-                        // Ejecutamos la lógica basada en la columna ExpiresAt
                         int affectedRows = await reservationRepository.ReleaseExpiredReservationsAsync(stoppingToken);
 
                         if (affectedRows > 0)
