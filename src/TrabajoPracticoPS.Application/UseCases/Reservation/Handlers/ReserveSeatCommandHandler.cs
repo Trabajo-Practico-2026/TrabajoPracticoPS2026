@@ -30,26 +30,44 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
         {
             try
             {
+                var now = DateTime.UtcNow;
                 var seat = await _seatRepository.GetSeatById(request.SeatId);
 
                 if (seat == null) throw new NotFoundException("La butaca no existe.");
 
-                if (seat.Status != "Available") throw new ConflictException("La butaca ya no está disponible.");
+                bool isTrulyOccupied = seat.Status == "Sold" ||
+                               (seat.Status == "Reserved" &&
+                                seat.Reservation != null &&
+                                seat.Reservation.ExpiresAt > now);
+
+                if (isTrulyOccupied)
+                    throw new ConflictException("La butaca ya no está disponible.");
+
+                
+
+                if(seat.Reservation == null)
+                {
+                    var reservation = new Domain.Entities.Reservation
+                    {
+                        Id = Guid.NewGuid(),
+                        UserId = request.UserId,
+                        SeatId = seat.Id,
+                        Status = "Pending",
+                        ReservedAt = now,
+                        ExpiresAt = now.AddMinutes(5) // Tiempo de gracia
+                    };
+                    await _reservationRepository.CreateReservation(reservation);
+                }
+                else
+                {
+                    seat.Reservation.UserId = request.UserId;
+                    seat.Reservation.Status = "Pending";
+                    seat.Reservation.ReservedAt = now;
+                    seat.Reservation.ExpiresAt = now.AddMinutes(5); // Tiempo de gracia
+                }
 
                 seat.Status = "Reserved";
                 seat.Version++; // Incrementamos la versión para control de concurrencia
-
-
-                var reservation = new Domain.Entities.Reservation
-                {
-                    Id = Guid.NewGuid(),
-                    UserId = request.UserId,
-                    SeatId = seat.Id,
-                    Status = "Pending",
-                    ReservedAt = DateTime.UtcNow,
-                    ExpiresAt = DateTime.UtcNow.AddMinutes(5) // Tiempo de gracia
-                };
-
 
                 var log = new AuditLog
                 {
@@ -61,10 +79,8 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                     CreatedAt = DateTime.UtcNow
                 };
 
-
-                await _reservationRepository.CreateReservation(reservation);
+                
                 await _auditLogRepository.CreateAuditLog(log);
-
 
                 await _unitOfWork.SaveChangesAsync();
             }
