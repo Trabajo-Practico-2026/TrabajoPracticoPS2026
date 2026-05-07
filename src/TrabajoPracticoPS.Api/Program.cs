@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TrabajoPracticoPS.Api.BackgroundServices;
 using TrabajoPracticoPS.Api.Middlewares;
 using TrabajoPracticoPS.Application.Interfaces;
 using TrabajoPracticoPS.Infrastructure.Data;
@@ -40,6 +41,9 @@ builder.Services.AddScoped<ISeatRepository, SeatRepository>();
 builder.Services.AddScoped<IAuditLogRepository, AuditLogRepository>();
 builder.Services.AddScoped<IReservationRespository, ReservationRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//Workers
+builder.Services.AddHostedService<ReservationReleaseWorker>();
 
 var app = builder.Build();
 
