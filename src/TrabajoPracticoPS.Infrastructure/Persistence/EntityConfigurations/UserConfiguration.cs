@@ -20,13 +20,26 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.EntityConfigurations
             builder.HasIndex(u => u.Email).IsUnique();
             builder.Property(u => u.PasswordHash).IsRequired();
 
-            builder.HasData(new User
+            //Generador de 2 usuarios de ejemplo con password hash
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword("password123");
+            string hashedPassword2 = BCrypt.Net.BCrypt.HashPassword("password456");
+
+            builder.HasData(
+            new User
             {
                 Id = 1,
                 Name = "John Doe",
                 Email = "john.doe@example.com",
-                PasswordHash = "hashed_password"
-            });
+                PasswordHash = hashedPassword
+            },
+            new User
+            {
+                Id = 2,
+                Name = "Jane Smith",
+                Email = "jane.smith@example.com",
+                PasswordHash = hashedPassword2
+            }
+            );
         }
     }
 }

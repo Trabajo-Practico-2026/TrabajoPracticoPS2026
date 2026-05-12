@@ -12,9 +12,11 @@ namespace TrabajoPracticoPS.Application.UseCases.User.Handlers
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
         private readonly IUserRepository _userRepository;
-        public CreateUserCommandHandler(IUserRepository userRepository)
+        private readonly IPasswordHasher _passwordHasher;
+        public CreateUserCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher)
         {
             _userRepository = userRepository;
+            _passwordHasher = passwordHasher;
         }
         public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
@@ -22,7 +24,7 @@ namespace TrabajoPracticoPS.Application.UseCases.User.Handlers
             {
                 Name = request.UserName,
                 Email = request.Email,
-                PasswordHash = request.Password
+                PasswordHash = _passwordHasher.Hash(request.Password)
             };
 
             await _userRepository.CreateUser(user);

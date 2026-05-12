@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using TrabajoPracticoPS.Application.UseCases.User.Commands;
+using TrabajoPracticoPS.Application.UseCases.User.Queries;
 
 namespace TrabajoPracticoPS.Api.Controllers
 {
@@ -14,6 +15,15 @@ namespace TrabajoPracticoPS.Api.Controllers
         {
             _mediator = mediator;
         }
+        [HttpGet("users/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _mediator.Send(new GetUserByIdQuery(id));
+            return StatusCode(StatusCodes.Status200OK, user);
+        }
+
         [HttpPost("users")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

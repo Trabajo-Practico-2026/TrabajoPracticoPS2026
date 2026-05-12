@@ -18,7 +18,6 @@
     <Folder Include="UseCases\Reservation\Queries\" />
     <Folder Include="UseCases\Seat\Commands\" />
     <Folder Include="UseCases\Sector\Commands\" />
-    <Folder Include="UseCases\User\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
