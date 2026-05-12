@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TrabajoPracticoPS.Application.UseCases.Reservation.Commands
 {
-    public record ReserveSeatCommand(Guid SeatId, int UserId): IRequest
+    public record ReserveSeatCommand(Guid SeatId, int UserId): IRequest <Guid>
     {
     }
 }

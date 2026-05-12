@@ -11,7 +11,7 @@ using TrabajoPracticoPS.Domain.Exceptions;
 
 namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
 {
-    public class ReserveSeatCommandHandler : IRequestHandler<ReserveSeatCommand>
+    public class ReserveSeatCommandHandler : IRequestHandler<ReserveSeatCommand, Guid>
     {
         private readonly ISeatRepository _seatRepository;
         private readonly IReservationRespository _reservationRepository;
@@ -26,7 +26,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(ReserveSeatCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(ReserveSeatCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -43,11 +43,11 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                 if (isTrulyOccupied)
                     throw new ConflictException("La butaca ya no está disponible.");
 
-                
+                Domain.Entities.Reservation reservation;
 
                 if(seat.Reservation == null)
                 {
-                    var reservation = new Domain.Entities.Reservation
+                     reservation = new Domain.Entities.Reservation
                     {
                         Id = Guid.NewGuid(),
                         UserId = request.UserId,
@@ -60,6 +60,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                 }
                 else
                 {
+                    reservation = seat.Reservation;
                     seat.Reservation.UserId = request.UserId;
                     seat.Reservation.Status = "Pending";
                     seat.Reservation.ReservedAt = now;
@@ -83,6 +84,9 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                 await _auditLogRepository.CreateAuditLog(log);
 
                 await _unitOfWork.SaveChangesAsync();
+
+                return reservation.Id;
+
             }
             catch (DomainException)
             {
