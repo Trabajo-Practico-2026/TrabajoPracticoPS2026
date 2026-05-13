@@ -12,5 +12,6 @@ namespace TrabajoPracticoPS.Application.Interfaces
         Task<IEnumerable<Seat>> GetAllSeats();
         Task<IEnumerable<Seat>> GetSeatsBySector(int sectorId);
         Task<Seat> GetSeatById(Guid seatId);
+        Task UpdateSeat(Seat seat);
     }
 }

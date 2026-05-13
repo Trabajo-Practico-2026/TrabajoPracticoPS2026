@@ -12,6 +12,7 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.Repositories
         {
             _context = context;
         }
+
         public async Task CreateReservation(Reservation reservation)
         {
             await _context.AddAsync(reservation);
@@ -49,5 +50,13 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.Repositories
 
             return await _context.SaveChangesAsync(ct);
         }
+        public async Task CancelReservation(Reservation reservation)
+        {
+            var now = DateTime.UtcNow;
+            reservation.Status = "Expired";
+            reservation.ExpiresAt = now;
+            await _context.SaveChangesAsync();
+        }
+        
     }
 }

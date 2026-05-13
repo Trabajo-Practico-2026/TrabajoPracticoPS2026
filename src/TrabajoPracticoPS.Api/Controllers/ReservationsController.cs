@@ -25,19 +25,28 @@ namespace TrabajoPracticoPS.Api.Controllers
             var reservationId = await _mediator.Send(new ReserveSeatCommand(request.SeatId, request.UserId));
             return StatusCode(StatusCodes.Status201Created, new {
                 Id = reservationId,
-                Message = "Butaca reservada exitosamente. Tienes 5 minutos para completar la compra." 
+                Message = "Butaca reservada exitosamente. Tienes 5 minutos para completar la compra."
             });
         }
         //confirmar pago
-        [HttpPost("reservations/{id}/confirm")]
+        [HttpPut("reservations/{id}/confirm")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> ConfirmPayment(Guid id)
         {
-                await _mediator.Send(new ConfirmPaymentCommand(id));
-                return Ok(new { Message = "Pago confirmado. La butaca fue marcada como vendida." });
-            
+            await _mediator.Send(new ConfirmPaymentCommand(id));
+            return Ok(new { Message = "Pago confirmado. La butaca fue marcada como vendida." });
+
+        }
+
+        [HttpPut("reservations/{id}/cancel")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> CancelReservation(Guid id)
+        {
+            await _mediator.Send(new CancelReservedSeatCommand(id));
+            return Ok(new { Message = "Reserva cancelada exitosamente." });
         }
 
     }

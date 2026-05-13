@@ -63,5 +63,11 @@ namespace TrabajoPracticoPS.Infrastructure.Persistence.Repositories
 
             return seats;
         }
+
+        public async Task UpdateSeat(Seat seat)
+        {
+            _context.Seats.Update(seat);
+            await _context.SaveChangesAsync();
+        }
     }
 }
