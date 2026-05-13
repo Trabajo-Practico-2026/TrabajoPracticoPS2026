@@ -22,8 +22,11 @@ namespace TrabajoPracticoPS.Api.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> ReserveSeat([FromBody] ReserveSeatCommand request)
         {
-            await _mediator.Send(new ReserveSeatCommand(request.SeatId, request.UserId));
-            return StatusCode(StatusCodes.Status201Created, new { Message = "Butaca reservada exitosamente. Tienes 5 minutos para completar la compra." });
+            var reservationId = await _mediator.Send(new ReserveSeatCommand(request.SeatId, request.UserId));
+            return StatusCode(StatusCodes.Status201Created, new {
+                Id = reservationId,
+                Message = "Butaca reservada exitosamente. Tienes 5 minutos para completar la compra." 
+            });
         }
         //confirmar pago
         [HttpPost("reservations/{id}/confirm")]

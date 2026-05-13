@@ -11,7 +11,7 @@ using TrabajoPracticoPS.Domain.Exceptions;
 
 namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
 {
-    public class ReserveSeatCommandHandler : IRequestHandler<ReserveSeatCommand>
+    public class ReserveSeatCommandHandler : IRequestHandler<ReserveSeatCommand, Guid>
     {
         private readonly ISeatRepository _seatRepository;
         private readonly IReservationRespository _reservationRepository;
@@ -26,10 +26,11 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(ReserveSeatCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(ReserveSeatCommand request, CancellationToken cancellationToken)
         {
             try
             {
+                Guid reservationId;
                 var now = DateTime.UtcNow;
                 var seat = await _seatRepository.GetSeatById(request.SeatId);
 
@@ -57,6 +58,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                         ExpiresAt = now.AddMinutes(5) // Tiempo de gracia
                     };
                     await _reservationRepository.CreateReservation(reservation);
+                    reservationId = reservation.Id;
                 }
                 else
                 {
@@ -64,6 +66,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                     seat.Reservation.Status = "Pending";
                     seat.Reservation.ReservedAt = now;
                     seat.Reservation.ExpiresAt = now.AddMinutes(5); // Tiempo de gracia
+                    reservationId = seat.Reservation.Id;
                 }
 
                 seat.Status = "Reserved";
@@ -83,6 +86,8 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                 await _auditLogRepository.CreateAuditLog(log);
 
                 await _unitOfWork.SaveChangesAsync();
+                return reservationId;
+                
             }
             catch (DomainException)
             {
