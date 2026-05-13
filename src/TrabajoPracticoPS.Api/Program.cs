@@ -41,6 +41,7 @@ builder.Services.AddScoped<ISeatRepository, SeatRepository>();
 builder.Services.AddScoped<IAuditLogRepository, AuditLogRepository>();
 builder.Services.AddScoped<IReservationRespository, ReservationRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPasswordHasher, BCryptHasher>();
 
 //Workers
 builder.Services.AddHostedService<ReservationReleaseWorker>();

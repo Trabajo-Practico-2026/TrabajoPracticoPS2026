@@ -12,7 +12,7 @@ using TrabajoPracticoPS.Infrastructure.Data;
 namespace TrabajoPracticoPS.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260430024904_InicialCreate")]
+    [Migration("20260512232907_InicialCreate")]
     partial class InicialCreate
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.23")
+                .HasAnnotation("ProductVersion", "8.0.19")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -252,7 +252,14 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
                             Id = 1,
                             Email = "john.doe@example.com",
                             Name = "John Doe",
-                            PasswordHash = "hashed_password"
+                            PasswordHash = "$2a$11$1FiAFSqa9MHA0L/BSzWH2.87Akaft6IvJEwGOFOAH9sehKQ7ak/Ry"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "jane.smith@example.com",
+                            Name = "Jane Smith",
+                            PasswordHash = "$2a$11$BalyrxiPVGmYwe4aRrbw5.vYQ9MV9DihwZ3mHCRpttxoFumZu9.9e"
                         });
                 });
 

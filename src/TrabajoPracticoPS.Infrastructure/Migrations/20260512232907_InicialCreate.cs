@@ -145,7 +145,11 @@ namespace TrabajoPracticoPS.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "USER",
                 columns: new[] { "Id", "Email", "Name", "PasswordHash" },
-                values: new object[] { 1, "john.doe@example.com", "John Doe", "hashed_password" });
+                values: new object[,]
+                {
+                    { 1, "john.doe@example.com", "John Doe", "$2a$11$1FiAFSqa9MHA0L/BSzWH2.87Akaft6IvJEwGOFOAH9sehKQ7ak/Ry" },
+                    { 2, "jane.smith@example.com", "Jane Smith", "$2a$11$BalyrxiPVGmYwe4aRrbw5.vYQ9MV9DihwZ3mHCRpttxoFumZu9.9e" }
+                });
 
             migrationBuilder.InsertData(
                 table: "SECTOR",
