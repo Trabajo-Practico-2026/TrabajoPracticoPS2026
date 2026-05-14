@@ -13,5 +13,6 @@ namespace TrabajoPracticoPS.Application.Interfaces
         //Para el pago transaccional
         Task<Reservation?> GetReservationById(Guid reservationId);
         Task<int> ReleaseExpiredReservationsAsync(CancellationToken ct);
+        Task CancelReservation(Reservation reservation);
     }
 }

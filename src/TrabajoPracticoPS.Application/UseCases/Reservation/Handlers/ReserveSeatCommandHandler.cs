@@ -30,6 +30,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
         {
             try
             {
+                Guid reservationId;
                 var now = DateTime.UtcNow;
                 var seat = await _seatRepository.GetSeatById(request.SeatId);
 
@@ -57,6 +58,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                         ExpiresAt = now.AddMinutes(5) // Tiempo de gracia
                     };
                     await _reservationRepository.CreateReservation(reservation);
+                    reservationId = reservation.Id;
                 }
                 else
                 {
@@ -65,6 +67,7 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
                     seat.Reservation.Status = "Pending";
                     seat.Reservation.ReservedAt = now;
                     seat.Reservation.ExpiresAt = now.AddMinutes(5); // Tiempo de gracia
+                    reservationId = seat.Reservation.Id;
                 }
 
                 seat.Status = "Reserved";
@@ -85,8 +88,8 @@ namespace TrabajoPracticoPS.Application.UseCases.Reservation.Handlers
 
                 await _unitOfWork.SaveChangesAsync();
 
-                return reservation.Id;
-
+                return reservationId;
+                
             }
             catch (DomainException)
             {
